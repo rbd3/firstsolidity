@@ -27,6 +27,7 @@ async function main() {
     console.log("hey value from updated:", heyValue.toString());  // Logs only the value as a string
     console.log("Sum value from updated:", await learnFunction.get(2, 3));
     console.log("Product value from updated:", await learnFunction.getProduct(2, 3));
+    console.log("value :", await learnFunction.ifElse(5));
 
 }
 
