@@ -1,23 +1,33 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-    const MyContract = await ethers.getContractFactory("MyContract"); // Load the contract
-    const myContract = await MyContract.deploy();                     // Deploy the contract
-
-    // Wait for the contract to finish deploying and retrieve the address
+    // Deploy MyContract
+    const MyContract = await ethers.getContractFactory("MyContract");
+    const myContract = await MyContract.deploy();
     await myContract.waitForDeployment();
+    const myContractAddress = await myContract.getAddress();
 
-    // Retrieve the address from `getAddress()` if `address` is undefined
-    const contractAddress = await myContract.getAddress(); 
+    console.log("MyContract deployed to:", myContractAddress);
+    console.log("Greet message from MyContract:", await myContract.greet());
 
-    console.log("MyContract deployed to:", contractAddress); // Display the contract address
-    console.log("Greet message:", await myContract.greet()); // Call the greet function and log the message
-    console.log("GasLimit is: ", await myContract.gasLimit());
-    console.log("GasPrice is: ", await myContract.gasprice());
-    console.log("number is: ", await myContract.number());
-    console.log("timestamp is: ", await myContract.timestamp());
-    console.log("calldata is: ", await myContract.callData());
-    console.log("firstfour is: ", await myContract.Firstfour());
+    // Deploy LearnFunction
+    const LearnFunction = await ethers.getContractFactory("LearnFunction");
+    const learnFunction = await LearnFunction.deploy();
+    await learnFunction.waitForDeployment();
+    const learnFunctionAddress = await learnFunction.getAddress();
+
+    console.log("LearnFunction deployed to:", learnFunctionAddress);
+    console.log("Initial hey value from LearnFunction:", await learnFunction.getInfo());
+    console.log("hey value from updated:", await learnFunction.updateInfo(402));
+
+    const tx = await learnFunction.updateInfo(100); // Sets `hey` to 100
+    await tx.wait();
+    //console.log("hey value from updated:", await learnFunction.getInfo());
+    const heyValue = await learnFunction.getInfo();
+    console.log("hey value from updated:", heyValue.toString());  // Logs only the value as a string
+    console.log("Sum value from updated:", await learnFunction.get(2, 3));
+    console.log("Product value from updated:", await learnFunction.getProduct(2, 3));
+
 }
 
 main()
