@@ -22,4 +22,17 @@ contract LearnFunction {
         uint256 product = _a * _b;
         return product;
     }
+
+    function ifElse(uint256 _num) public pure returns (string memory) {
+        if (_num == 5) {
+            return "Number is 5";
+        } else if (_num < 5) {
+            return "Number is less than 5";
+        } else {
+            return "Number is higher than 5";
+        }
+
+        // short hand if else
+        // return _num == 5 ? "Number is 5" : "Number is not 5";
+    }
 }
