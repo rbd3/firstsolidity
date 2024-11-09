@@ -39,7 +39,7 @@ contract LearnFunction {
 
     function ForLoop() public returns (uint256[] memory) {
         delete data;
-        
+
         for (uint256 i = 0; i < 10; i++) {
             data.push(i);
         }
@@ -60,6 +60,17 @@ contract LearnFunction {
             data.push(i);
             i++;
         } while (i < 5);
+        return data;
+    }
+
+    function whileLoop() public returns (uint256[] memory) {
+        uint256 i = 0;
+        delete data;
+
+        while (i < 8) {
+            data.push(i);
+            i++;
+        }
         return data;
     }
 }
