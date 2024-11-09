@@ -35,6 +35,13 @@ async function main() {
     // Retrieve and log the populated data
     const result = await learnFunction.getData();
     console.log("Array data value:", result);
+
+    const dowhil = await learnFunction.dowhileLoop();
+    await dowhil.wait();
+
+    // Retrieve and log the populated data
+    const resultdo = await learnFunction.getData();
+    console.log("dowhile value:", resultdo);
 }
 
 main()
