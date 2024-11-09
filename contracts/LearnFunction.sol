@@ -5,6 +5,7 @@ contract LearnFunction {
     // Contract code will go here
     uint256 public hey = 35;
     //uint256 hey;
+    uint256[] data;
 
     function getInfo() public view returns (uint256) {
         return hey;
@@ -34,5 +35,19 @@ contract LearnFunction {
 
         // short hand if else
         // return _num == 5 ? "Number is 5" : "Number is not 5";
+    }
+
+    function ForLoop() public returns (uint256[] memory) {
+        
+        for (uint256 i = 0; i < 10; i++) {
+            data.push(i);
+        }
+
+        return data;
+    }
+
+    // View function to retrieve the array after ForLoop runs
+    function getData() public view returns (uint256[] memory) {
+        return data;
     }
 }
