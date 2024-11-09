@@ -38,6 +38,7 @@ contract LearnFunction {
     }
 
     function ForLoop() public returns (uint256[] memory) {
+        delete data;
         
         for (uint256 i = 0; i < 10; i++) {
             data.push(i);
@@ -48,6 +49,17 @@ contract LearnFunction {
 
     // View function to retrieve the array after ForLoop runs
     function getData() public view returns (uint256[] memory) {
+        return data;
+    }
+
+    function dowhileLoop() public returns (uint256[] memory) {
+        uint256 i = 0;
+        delete data;
+
+        do {
+            data.push(i);
+            i++;
+        } while (i < 5);
         return data;
     }
 }
