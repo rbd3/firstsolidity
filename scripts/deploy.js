@@ -28,7 +28,13 @@ async function main() {
     console.log("Sum value from updated:", await learnFunction.get(2, 3));
     console.log("Product value from updated:", await learnFunction.getProduct(2, 3));
     console.log("value :", await learnFunction.ifElse(5));
+    
+    const forl = await learnFunction.ForLoop();
+    await forl.wait();
 
+    // Retrieve and log the populated data
+    const result = await learnFunction.getData();
+    console.log("Array data value:", result);
 }
 
 main()
