@@ -73,4 +73,16 @@ contract LearnFunction {
         }
         return data;
     }
+
+    function dowhile2() public returns (uint256[] memory) {
+        uint256 number = 0;
+        delete data;
+
+        while (number < 20) {
+            number ++;
+            data.push(number);
+            
+        }
+        return data;
+    }
 }
