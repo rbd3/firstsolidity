@@ -63,6 +63,9 @@ async function main() {
     // Retrieve and log the populated data
     const resulremove = await learnFunction.getData();
     console.log("resulremove value:", resulremove);
+
+    //fibonacci
+    console.log("Fibonnacci value from :", await learnFunction.fibonnacci(11));
 }
 
 main()
