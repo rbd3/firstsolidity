@@ -100,4 +100,18 @@ contract LearnFunction {
 
         remove(_index);
     }
+
+    function fibonnacci(uint256 _number) public pure returns (uint256) {
+        //uint256 fibo;
+        //fibo(0) = 0;
+        //fibo(1) = 1;
+        if (_number == 0) {
+            return 0;
+        } else if (_number == 1){
+            return 1;
+        } else {
+            return fibonnacci(_number - 1) + fibonnacci(_number - 2);
+        }
+        
+    }
 }
