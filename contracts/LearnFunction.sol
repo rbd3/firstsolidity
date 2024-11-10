@@ -85,4 +85,19 @@ contract LearnFunction {
         }
         return data;
     }
+
+    function remove(uint _index) public {
+        require(_index < data.length, "Index out of boud");
+
+        for (uint i = _index; i < data.length - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        data.pop();
+    } 
+
+    function test(uint _index) external {
+        data = [1,2,7,200,30,20,40];
+
+        remove(_index);
+    }
 }
