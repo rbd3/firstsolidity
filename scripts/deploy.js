@@ -56,6 +56,13 @@ async function main() {
     // Retrieve and log the populated data
     const resultwhil2 = await learnFunction.getData();
     console.log("d1owhile2 value:", resultwhil2);
+
+    const removet = await learnFunction.test(4);
+    await removet.wait();
+
+    // Retrieve and log the populated data
+    const resulremove = await learnFunction.getData();
+    console.log("resulremove value:", resulremove);
 }
 
 main()
