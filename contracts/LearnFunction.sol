@@ -115,4 +115,25 @@ contract LearnFunction {
         }
         
     }
+
+    //fibonacci using iteration
+    // time complexity O(n) space complexity O(1)
+    function fibo(uint256 _number) public pure returns (uint256) {
+        uint256 a = 0;
+        uint256 b = 1;
+        uint256 fibo;
+
+        if (_number == 0) {
+            return 0;
+        } else if (_number == 1) {
+            return 1;
+        }
+
+        for (uint i = 2; i < _number; i++) {
+            fibo = a + b;
+            a = b;
+            b = fibo;
+        }
+        return fibo;
+    }
 }
