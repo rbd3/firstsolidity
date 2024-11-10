@@ -101,6 +101,7 @@ contract LearnFunction {
         remove(_index);
     }
 
+// time compexity O(2^n) space complexity O(n) due to the depth of the recursion stack.
     function fibonnacci(uint256 _number) public pure returns (uint256) {
         //uint256 fibo;
         //fibo(0) = 0;
