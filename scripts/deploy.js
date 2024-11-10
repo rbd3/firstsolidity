@@ -49,6 +49,13 @@ async function main() {
     // Retrieve and log the populated data
     const resultwhil = await learnFunction.getData();
     console.log("d1owhile value:", resultwhil);
+
+    const whil2 = await learnFunction.dowhile2();
+    await whil2.wait();
+
+    // Retrieve and log the populated data
+    const resultwhil2 = await learnFunction.getData();
+    console.log("d1owhile2 value:", resultwhil2);
 }
 
 main()
