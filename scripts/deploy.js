@@ -66,6 +66,7 @@ async function main() {
 
     //fibonacci
     console.log("Fibonnacci value from :", await learnFunction.fibonnacci(11));
+    console.log("Fibonnacci value optimize :", await learnFunction.fibonnacci(22));
 }
 
 main()
