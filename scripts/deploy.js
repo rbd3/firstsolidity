@@ -66,7 +66,29 @@ async function main() {
 
     //fibonacci
     console.log("Fibonnacci value from :", await learnFunction.fibonnacci(11));
-    console.log("Fibonnacci value optimize :", await learnFunction.fibonnacci(22));
+    //console.log("Fibonnacci value optimize :", await learnFunction.fibonnacci(22));
+
+    // Deploy Enum
+    const Enum = await ethers.getContractFactory("Enum");
+    const Enumd = await Enum.deploy();
+    await Enumd.waitForDeployment();
+    const EnumAddress = await Enumd.getAddress();
+    console.log("Initial Status:", await Enumd.get());
+   
+   // const setstatus = await Enumd.set(Enum.Status.Accepted);
+   const setstatus = await Enumd.set(2);
+    await setstatus.wait();
+    console.log("Status Updated:", await Enumd.get());
+
+    const cancelstatus = await Enumd.cancel();
+    await cancelstatus.wait();
+    console.log("Status Cancel:", await Enumd.get());
+
+    const ressetstatus = await Enumd.resset();
+    await ressetstatus.wait();
+    console.log("Status resset:", await Enumd.get());
+
+
 }
 
 main()
