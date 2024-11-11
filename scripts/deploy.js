@@ -88,6 +88,62 @@ async function main() {
     await ressetstatus.wait();
     console.log("Status resset:", await Enumd.get());
 
+     // Deploy VoteSystem
+     const VotingSystem = await ethers.getContractFactory("VotingSystem");
+     const VotingSystem1 = await VotingSystem.deploy();
+     await VotingSystem1.waitForDeployment();
+     const VotingSystemAddress = await Enumd.getAddress();
+     console.log("voting system");
+
+     const createProposal = await VotingSystem1.createProposal("proposal for new features");
+     await createProposal.wait();
+     console.log("Status created:", await VotingSystem1.getStatus(1));
+
+     // Retrieve and log the proposal information for the first proposal
+    const proposalInfo1 = await VotingSystem1.getProposal(1);
+    console.log("Proposal Description:", proposalInfo1.description);
+    console.log("Up Votes:", proposalInfo1.upVotes.toString());
+    console.log("Down Votes:", proposalInfo1.downVotes.toString());
+    console.log("Status:", proposalInfo1.status);
+
+    // Step 3: Start voting on the proposal
+const startVotingTx = await VotingSystem1.startVoting(1);
+await startVotingTx.wait();
+// Retrieve and log the proposal information for the first proposal
+const proposalInfo = await VotingSystem1.getProposal(1);
+console.log("Proposal Description:", proposalInfo.description);
+console.log("Up Votes:", proposalInfo.upVotes.toString());
+console.log("Down Votes:", proposalInfo.downVotes.toString());
+console.log("Status:", proposalInfo.status);
+
+// Step 4: Cast votes (3 upvotes and 2 downvotes)
+await VotingSystem1.vote(1, true); // Upvote
+await VotingSystem1.vote(1, true); // Upvote
+await VotingSystem1.vote(1, true); // Upvote
+await VotingSystem1.vote(1, false); // Downvote
+await VotingSystem1.vote(1, false); // Downvote
+await VotingSystem1.vote(1, false); // Downvote
+await VotingSystem1.vote(1, false); // Downvote
+// Retrieve and log the proposal information for the first proposal
+const proposalInfo2 = await VotingSystem1.getProposal(1);
+console.log("Proposal Description:", proposalInfo2.description);
+console.log("Up Votes:", proposalInfo2.upVotes.toString());
+console.log("Down Votes:", proposalInfo2.downVotes.toString());
+console.log("Status:", proposalInfo2.status);
+
+// Step 5: Finalize the voting
+const finalizeVotingTx = await VotingSystem1.finalizeVoting(1);
+await finalizeVotingTx.wait();
+
+// Check final status (should be 'Accepted' since upVotes > downVotes)
+const proposalInfo3 = await VotingSystem1.getProposal(1);
+console.log("Final Status (Accepted or Rejected):", proposalInfo3.status.toString()); // Expected: 2 (Accepted)
+
+// Retrieve and log the voting percentages for the first proposal
+const { upVotePercentage, downVotePercentage } = await VotingSystem1.getVotingPercentage(1);
+console.log("Upvote Percentage:", upVotePercentage.toString() + "%");
+console.log("Downvote Percentage:", downVotePercentage.toString() + "%");
+
 
 }
 
