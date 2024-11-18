@@ -144,6 +144,23 @@ const { upVotePercentage, downVotePercentage } = await VotingSystem1.getVotingPe
 console.log("Upvote Percentage:", upVotePercentage.toString() + "%");
 console.log("Downvote Percentage:", downVotePercentage.toString() + "%");
 
+// Deploy Payable
+const Payable = await ethers.getContractFactory("Payable");
+const Payables = await Payable.deploy();
+await Payables.waitForDeployment();
+const Payablesadress = await Payables.getAddress();
+console.log("Initial Balance:", await Payables.checkBalance());
+
+const depot = await Payables.deposit({
+    value: ethers.parseEther("20.0"), // Sending 1 Ether
+});
+await depot.wait();
+// Fetch balance
+const balanceInWei = await Payables.checkBalance();
+
+// Format to Ether for readability
+console.log("Balance after deposit:", ethers.formatEther(balanceInWei), "ETH");
+
 
 }
 
