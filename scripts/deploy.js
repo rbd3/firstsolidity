@@ -161,6 +161,50 @@ const balanceInWei = await Payables.checkBalance();
 // Format to Ether for readability
 console.log("Balance after deposit:", ethers.formatEther(balanceInWei), "ETH");
 
+//const withdraw = await Payables.withdrawAll();
+// Fetch balance
+//const balancewith = await Payables.checkBalance();
+
+// Format to Ether for readability
+//console.log("Balance after withdraw:", ethers.formatEther(balancewith), "ETH");
+try {
+    const withdraw = await Payables.withdraw(ethers.parseEther("10.0"));
+    await withdraw.wait();
+
+    // Fetch balance
+    const balanceAfterWithdraw = await Payables.checkBalance();
+
+    // Format to Ether for readability
+    console.log("Balance after withdrawal:", ethers.formatEther(balanceAfterWithdraw), "ETH");
+} catch (error) {
+    // Check for revert reason in error.data or error.error.message
+    if (error.data && error.data.message) {
+        console.log(error.data.message); // Outputs: Insufficient balance in contract
+    } else if (error.error && error.error.message) {
+        console.log(error.error.message); // Outputs: Insufficient balance in contract
+    } else if (error.reason) {
+        console.log(error.reason); // Fallback for standard revert reasons
+    } else {
+        console.error("An unexpected error occurred:", error);
+    }
+}
+
+// Get signers (accounts)
+const [owner, recipient] = await ethers.getSigners();
+
+ // Transfer 2 Ether to the recipient
+ const transferTx = await Payables.transferOptimized(recipient.address, ethers.parseEther("2.0"));
+ await transferTx.wait();
+ console.log("Transferred 2 ETH to recipient:", recipient.address);
+
+  // Check balances
+  const contractBalance = await Payables.checkBalance();
+  const recipientBalance = await ethers.provider.getBalance(recipient.address);
+
+  console.log("Contract Balance:", ethers.formatEther(contractBalance), "ETH");
+  console.log("Recipient Balance:", ethers.formatEther(recipientBalance), "ETH");
+
+
 
 }
 
