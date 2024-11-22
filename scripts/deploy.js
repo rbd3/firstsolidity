@@ -204,6 +204,23 @@ const [owner, recipient] = await ethers.getSigners();
   console.log("Contract Balance:", ethers.formatEther(contractBalance), "ETH");
   console.log("Recipient Balance:", ethers.formatEther(recipientBalance), "ETH");
 
+ // Deploy Bar contract
+ const Bar = await ethers.getContractFactory("Bar");
+ const bar = await Bar.deploy();
+ await bar.waitForDeployment();
+ const barAddress = await bar.getAddress();
+
+ console.log("Bar contract deployed at:", barAddress);
+
+ // Get the deployed Bar contract
+ const fooAddress = await bar.foo();
+ console.log("Foo contract deployed by Bar at:", fooAddress);
+
+ console.log("Testing tryCatchNewContract with invalid address (0x0)...");
+ const tx4 = await bar.tryCatchNewContract(ethers.ZeroAddress); // Invalid address
+ const receipt4 = await tx4.wait();
+ console.log("Events emitted:");
+ receipt4.logs.forEach((log) => console.log(log));
 
 
 }
