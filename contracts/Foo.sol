@@ -15,3 +15,32 @@ contract Foo {
         return "my func was called";
     }
 }
+
+contract Bar {
+    event Log(string message);
+    event LogBytes(bytes data);
+
+    Foo public foo;
+
+    constructor () {
+        foo = new Foo(msg.sender);
+    }
+
+    function tryCatchExternalCall(uint256 _i) public {
+        try foo.myFunc(_i) returns (string memory result) {
+            emit Log(result);
+        } catch {
+            emit Log("externall call failed");
+        }
+    }
+
+    function tryCatchNewContract(address _owner) public {
+        try new Foo(_owner) returns (Foo foo) {
+            emit Log("Foo created");
+        } catch Error(string memory reason) {
+            emit Log(reason);
+        } catch (bytes memory reason) {
+            emit LogBytes(reason);
+        }
+    }
+}
