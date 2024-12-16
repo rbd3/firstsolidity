@@ -222,7 +222,17 @@ const [owner, recipient] = await ethers.getSigners();
  console.log("Events emitted:");
  receipt4.logs.forEach((log) => console.log(log));
 
+ // Deploy NFTCount
+ const NFTCount = await ethers.getContractFactory("NFTCount");
+ const nftcount = await NFTCount.deploy();
+ await nftcount.waitForDeployment();
 
+// const setstatus = await Enumd.set(Enum.Status.Accepted);
+const addNFT = await nftcount.addNFT();
+ await addNFT.wait();
+ const addNFT2 = await nftcount.addNFT();
+ await addNFT2.wait();
+ console.log("NFT Updated:", await nftcount.getNFT());
 }
 
 main()
