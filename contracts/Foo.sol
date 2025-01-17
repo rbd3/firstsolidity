@@ -29,7 +29,7 @@ contract Bar {
     function tryCatchExternalCall(uint256 _i) public {
         try foo.myFunc(_i) returns (string memory result) {
             emit Log(result);
-        } catch {
+        } catch (bytes memory reason) {
             emit Log("externall call failed");
         }
     }
